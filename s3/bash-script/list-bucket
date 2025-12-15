@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+
+echo "==list newest bucket"
+
+aws s3api list-buckets \
+--query "Buckets[].Name" \
+--output text

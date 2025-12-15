@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+echo "==create bucket"
+
+# check bucket name
+if [ -z "$1" ]; then   # If no argument was provided to the script…
+    echo "there needs to be a bucket name. ex- ./create-bucket <bucket-name>"
+    exit 1
+fi  # when argument passed, execute below
+
+BUCKET_NAME=$1
+aws s3api create-bucket \
+--bucket $BUCKET_NAME

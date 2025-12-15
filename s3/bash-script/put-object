@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+echo "==upload object into a bucket"
+
+if [ -z "$1" ]; then
+    echo "bucket name needs to be provided"
+    exit 1
+fi
+if [ -z "$2" ]; then
+    echo "file name to be uploaded needs to be provided"
+    exit 1
+fi
+
+BUCKET_NAME=$1
+FILE_NAME=$2
+
+OBJECT_KEY=$(basename "$FILE_NAME")
+
+aws s3api put-object \
+--bucket $1 \
+--body $FILE_NAME \
+--key $OBJECT_KEY
