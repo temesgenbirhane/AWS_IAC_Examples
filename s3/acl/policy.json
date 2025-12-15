@@ -1,0 +1,16 @@
+{
+  "Grants": [
+    {
+      "Grantee": {
+        "DisplayName": "user1",
+        "ID": "<put ID for another user here>",
+        "Type": "CanonicalUser"
+      },
+      "Permission": "FULL_CONTROL"
+    }
+  ],
+  "Owner": {
+    "DisplayName": "teme2share",
+    "ID": "537124968418"
+  }
+}
