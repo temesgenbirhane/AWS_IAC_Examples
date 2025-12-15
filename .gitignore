@@ -1,0 +1,7 @@
+Gemfile.lock
+.terraform/*
+LICENSE.txt
+terraform.tfstate.backup
+terraform.tfstate
+.terraform.lock.hcl
+terraform-provider-aws_v6.26.0_x5
