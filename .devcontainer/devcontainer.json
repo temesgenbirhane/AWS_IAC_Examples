@@ -6,7 +6,10 @@
 	"image": "mcr.microsoft.com/devcontainers/base:noble",
 	"features": {
 		"ghcr.io/devcontainers/features/aws-cli:1": {}
-	}
+	},
+	 "containerEnv": {
+    "AWS_CLI_AUTO_PROMPT": "on-partial"
+  }
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
