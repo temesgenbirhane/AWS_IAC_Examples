@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# create a vpc
+VPC_ID=$(aws ec2 create-vpc \
+--cidr-block '10.0.0.0/16' \
+--tag-specifications 'ResourceType=vpc,Tags=[{Key=Name,Value=MyNewVpc}]' \
+--query Vpc.VpcId \
+--output text)
+
+echo "VPC_ID: $VPC_ID"
+
+# create a subnet
+SUBNET_ID=$(aws ec2 create-subnet \
+--vpc-id $VPC_ID \
+--cidr-block 10.0.0.0/24 \
+--tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=MyNewSubnet}]' \
+--query Subnet.SubnetId \
+--output text)
+
+echo "SUBNET_ID: $SUBNET_ID"
+
+# create igw
+IGW_ID=$(aws ec2 create-internet-gateway \
+--tag-specifications 'ResourceType=internet-gateway,Tags=[{Key=Name,Value=myNewigw}]' \
+--query InternetGateway.InternetGatewayId \
+--output text)
+echo "IGW_ID: $IGW_ID"
+
+# attach igw to vpc
+aws ec2 attach-internet-gateway \
+--internet-gateway-id $IGW_ID \
+--vpc-id $VPC_ID
+
+# grab rtb_id
+RTB_ID=$(aws ec2 describe-route-tables \
+--filters "Name=vpc-id,Values=$VPC_ID" "Name=association.main,Values=true" \
+--query "RouteTables[].RouteTableId[]" \
+--output text)
+echo "RTB_ID: $RTB_ID"
+
+# create route in rtb from subnet->igw
+
+aws ec2 create-route \
+--route-table-id $RTB_ID \
+--destination-cidr-block '0.0.0.0/0' \
+--gateway-id $IGW_ID
+
+echo "./delete-vpc $VPC_ID $IGW_ID $SUBNET_ID"
+
