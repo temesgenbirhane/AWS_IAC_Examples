@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+aws cloudformation \
+deploy --templaye-file template.yaml \
+--stack-name newstack
